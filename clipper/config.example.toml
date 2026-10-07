@@ -1,0 +1,33 @@
+# Copy to config.toml to change anything. Every setting has a working default,
+# so this file is optional.
+
+work_dir = "work"            # per-video cache, clips and review sheets go here
+
+# Transcription (faster-whisper on CPU). tiny/base = fast, small = balanced, medium = most accurate.
+whisper_model = "small"
+language = "en"
+
+# Moment finding (seconds)
+lead = 18                    # clip starts this long before the loudest second
+tail = 8                     # ...and ends this long after
+min_len = 12
+max_len = 60
+min_gap = 45                 # minimum distance between two candidate moments
+max_candidates = 20
+
+# Ranking. The cheap model screens every candidate; the strong model picks and writes captions.
+screen_model = "claude-haiku-4-5"
+pick_model = "claude-opus-5-5"
+pick_effort = "medium"       # low | medium | high
+pick_top = 8                 # candidates the strong model sees
+
+# Rendering
+render_top = 5
+layout = "meme"              # meme = full frame on black with caption space on top; crop = fill 9:16
+encoder = "libx264"          # "h264_amf" uses your AMD GPU's encoder on Windows
+font_file = ""               # blank = Arial Bold (Windows/macOS) or DejaVu Sans Bold (Linux)
+
+# Caption voice examples. Defaults are your own top TikTok captions; add new winners over time.
+# [[style]]
+# caption = "Took his ancestors ankles"
+# views = "1.9M"
