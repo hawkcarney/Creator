@@ -1,0 +1,69 @@
+# Copy to config.toml and edit. config.toml is gitignored.
+# Prefer putting your key in the YOUTUBE_API_KEY environment variable instead of here.
+api_key = ""
+
+db_path = "data/scout.db"
+daily_quota = 10000      # Google's default per project. A search costs 100 units; stats lookups cost 1.
+quota_reserve = 1000     # headroom left unspent each day
+lookback_days = 30       # only consider videos published in this window
+track_days = 14          # keep re-snapshotting videos first seen in this window (growth curves)
+retention_days = 30      # YouTube API policy: refresh or delete stored API data after 30 days
+region = "US"
+language = "en"
+small_channel_subs = 50000
+
+# viewCount = the top performers (the ceiling; biased toward winners).
+# Add "date" to also sample typical recent uploads. Doubles search cost.
+orders = ["viewCount"]
+
+# filters: YouTube's search duration filter. short = under 4 min, medium = 4-20 min, long = over 20 min.
+# The report re-buckets by actual length (Shorts = 3 min or less), so filters only steer sampling.
+#
+# rpm_short / rpm_long are GUESSES used only for the "est $/vid" column.
+# Long-form values are the low end of the numbers in that X post, which are best-case US figures.
+# Replace them with real numbers once you have any.
+
+[[niche]]
+name = "streamer_clips"
+filters = ["short", "medium"]
+rpm_short = 0.05
+rpm_long = 3.0
+queries = [
+  "streamer funny moments",
+  "kai cenat clips",
+  "ishowspeed clips",
+  "twitch clips",
+]
+
+[[niche]]
+name = "finance"
+filters = ["short", "medium", "long"]
+rpm_short = 0.05
+rpm_long = 15.0
+queries = [
+  "personal finance explained",
+  "how the rich avoid taxes",
+  "stock market explained",
+]
+
+[[niche]]
+name = "tech_ai_news"
+filters = ["short", "medium", "long"]
+rpm_short = 0.05
+rpm_long = 10.0
+queries = [
+  "ai news this week",
+  "new ai tools",
+  "tech news explained",
+]
+
+[[niche]]
+name = "business_stories"
+filters = ["short", "medium", "long"]
+rpm_short = 0.05
+rpm_long = 12.0
+queries = [
+  "business documentary",
+  "rise and fall of company",
+  "how this company failed",
+]
